@@ -1,26 +1,26 @@
 <template>
-  <div id="app">
-    <CategoriesTree />
+  <div id="app" class="p-4" >
+    <CategoryCheckbox
+      v-for="cat in categories" 
+      :key="cat.id"
+      :node="cat"
+    />
   </div>
 </template>
 
 <script>
-import CategoriesTree from "./components/CategoriesTree.vue"
+import categoriesList from '@/constant/categories-tree-list';
+import CategoryCheckbox from './components/CategoryCheckbox.vue';
 
 export default {
   name: 'App',
   components: {
-    CategoriesTree
-  }
+    CategoryCheckbox
+  },
+  data() {
+    return {
+      categories: categoriesList
+    }
+  },
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-</style>

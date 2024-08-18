@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import categoriesList from '@/constant/categories-tree-list';
+// import categoriesList from '@/constant/categories-tree-list';
+import categoriesFlatList from '@/constant/categories-flat-list';
 import CategoryCheckbox from './components/CategoryCheckbox.vue';
 
 export default {
@@ -19,7 +20,23 @@ export default {
   },
   data() {
     return {
-      categories: categoriesList
+      categories: []
+    }
+  },
+  created() {
+    this.categories = this.treeCategories
+  },
+  computed: {
+    treeCategories() {
+      return this.convertToTree(categoriesFlatList);
+    }
+  },
+  methods: {
+    convertToTree(cats, pId = undefined) {
+      return cats.filter(category => category.parentId === pId).map(category => ({
+        ...category,
+        children: this.convertToTree(cats, category.id)
+      }));
     }
   },
 }
